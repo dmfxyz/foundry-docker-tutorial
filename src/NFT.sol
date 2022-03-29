@@ -3,10 +3,9 @@ pragma solidity >=0.8.10;
 
 import "solmate/tokens/ERC721.sol";
 import "openzeppelin-contracts/contracts/utils/Strings.sol";
-import "openzeppelin-contracts/contracts/security/PullPayment.sol";
 import "openzeppelin-contracts/contracts/access/Ownable.sol";
 
-contract NFT is ERC721, PullPayment, Ownable {
+contract NFT is ERC721, Ownable {
 
     using Strings for uint256;
     string public baseURI;
@@ -50,8 +49,9 @@ contract NFT is ERC721, PullPayment, Ownable {
                 : "";
     }
 
-    /// @dev Overridden in order to make it an onlyOwner function
-    function withdrawPayments(address payable payee) public override onlyOwner {
-        super.withdrawPayments(payee);
+    function withdrawPayments(address payable payee) external onlyOwner {
+        uint256 balance = address(this).balance;
+        (bool transferTx, ) = payee.call{value: balance}("");
+        require(transferTx);
     }
 }
