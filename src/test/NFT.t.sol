@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: UNLICENSED
-pragma solidity 0.8.10;
+pragma solidity 0.8.13;
 
 import "ds-test/test.sol";
 import "forge-std/stdlib.sol";
@@ -98,14 +98,14 @@ contract NFTTest is DSTest {
         assertEq(payee.balance, priorPayeeBalance + nftBalance);
     }
 
-    function testFailWithdrawalAsNotOwner() public {
-        vm.expectRevert("Ownable: caller is not the owner");
+    function testWithdrawalFailsAsNotOwner() public {
         // Mint an NFT, sending eht to the contract
         Receiver receiver = new Receiver();
         nft.mintTo{value: nft.MINT_PRICE()}(address(receiver));
         // Check that the balance of the contract is correct
         assertEq(address(nft).balance, nft.MINT_PRICE());
         // Confirm that a non-owner cannot withdraw
+        vm.expectRevert("Ownable: caller! is not the owner");
         vm.startPrank(address(0xd3ad));
         nft.withdrawPayments(payable(address(0xd3ad)));
         vm.stopPrank();
