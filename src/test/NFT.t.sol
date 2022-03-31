@@ -105,7 +105,7 @@ contract NFTTest is DSTest {
         // Check that the balance of the contract is correct
         assertEq(address(nft).balance, nft.MINT_PRICE());
         // Confirm that a non-owner cannot withdraw
-        vm.expectRevert("Ownable: caller! is not the owner");
+        vm.expectRevert("Ownable: caller is not the owner");
         vm.startPrank(address(0xd3ad));
         nft.withdrawPayments(payable(address(0xd3ad)));
         vm.stopPrank();

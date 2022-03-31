@@ -1,0 +1,4 @@
+FROM ghcr.io/gakonst/foundry:nightly
+WORKDIR /opt
+COPY . .
+RUN forge test
