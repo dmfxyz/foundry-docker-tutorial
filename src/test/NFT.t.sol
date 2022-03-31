@@ -114,11 +114,11 @@ contract NFTTest is DSTest {
 
 contract Receiver is ERC721TokenReceiver {
     function onERC721Received(
-        address operator,
-        address from,
-        uint256 id,
-        bytes calldata data
-    ) external returns (bytes4){
+        address,
+        address,
+        uint256,
+        bytes calldata
+    ) external pure returns (bytes4){
         return this.onERC721Received.selector;
     }
 }

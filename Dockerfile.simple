@@ -1,6 +1,5 @@
 from ghcr.io/gakonst/foundry:latest
-WORKDIR /opt
+WORKDIR /app
 COPY . .
 RUN forge build
 RUN forge test
-ENTRYPOINT ["forge", "create"]
