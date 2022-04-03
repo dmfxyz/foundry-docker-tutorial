@@ -98,7 +98,7 @@ contract NFTTest is DSTest {
         assertEq(payee.balance, priorPayeeBalance + nftBalance);
     }
 
-    function testWithdrawalFailsAsNotOwner() public {
+    function testWithdrawalDoesntWorkAsNotOwner() public {
         // Mint an NFT, sending eht to the contract
         Receiver receiver = new Receiver();
         nft.mintTo{value: nft.MINT_PRICE()}(address(receiver));

@@ -1,5 +1,10 @@
-from ghcr.io/gakonst/foundry:latest
+# Use the latest foundry image
+FROM ghcr.io/gakonst/foundry
+
+# Copy our source code into the container
 WORKDIR /app
 COPY . .
+
+# Build and test the source code
 RUN forge build
 RUN forge test
